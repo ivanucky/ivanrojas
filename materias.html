@@ -1,0 +1,84 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+    <header>
+        <a href="index.html">
+            <img src="imagenes/logo.png" alt="" class="logo">
+        </a>
+        <button class="abrirmenu" id="abrirmenu"><i class="bi bi-list"></i></button>
+        <nav class="menu" id="menu">
+            <button class="cerrarmenu" id="cerrarmenu"><i class="bi bi-x"></i></button>
+            <ul class="listamenu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="materias">
+        <h2 class="titulom">Materias:</h2>
+        <p class="pm">Materias que voy a rendir este cuatrimestre</p>
+        <form id="agregar">
+            <input type="text" placeholder="Agregar materias" name="item" id="item">
+            <button type="submit">+</button>
+        </form>
+
+        <ul id="lista0"></ul>
+    </section>
+
+    <script src="./code.jquery.com_jquery-3.7.0.min.js"></script>
+    <script>
+        const menu = document.querySelector("#menu");
+        const abrirhambur = document.querySelector("#abrirmenu");
+        const cerrarhambur = document.querySelector("#cerrarmenu");
+
+        abrirhambur.addEventListener("click", () => {
+            menu.classList.add("visible");
+        })
+        cerrarhambur.addEventListener("click", () => {
+            menu.classList.remove("visible")
+        })
+
+        let agregar = $('#agregar');
+        let item = $('#item');
+        let lista0 = $('#lista0');
+
+        let guardada = localStorage.getItem('lista0');
+        if (guardada) {
+            lista0.html(guardada)
+        }
+
+        agregar.on('submit', function (evento) {
+            evento.preventDefault();
+
+            if (item.val().length < 1) return;
+
+            lista0.html(lista0.html() + '<li>' + item.val() + '<span class="remove">X</span></li>');
+
+            localStorage.setItem('lista0', lista0.html());
+
+            item.val("");
+        })
+        $('.remove').on('click', function() {
+            $(this).parent().remove();
+            localStorage.setItem('lista0', lista0.html());
+        })
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
